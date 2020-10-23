@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap');
+
+
+$font-stack: 'Lato', sans-serif;
+$flat-green: #2ecc71;
+$flat-red: #e74c3c;
+$form-width: 400px;
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, 
+html{
+    position: relative;
+    font-family: $font-stack;
+    font-size: 16px;
+    font-weight: 300;
+    color: white;
+    height: 100vh;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 10%, rgba(65, 65, 65, 0.822) 50%, rgb(39, 39, 39) 100%),
+     url(./assets/scott-graham-5fNmWej4tAA-unsplash.jpg);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    text-rendering: optimizeLegibility;
+}
+
+.top{
+    padding: 60px 0;
+    border-bottom: 1px solid rgb(190, 190, 190);
+}
+
+.budget-data{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 40px;
+
+    .box{
+        display: inline-block;
+        width: 200px;
+        height: auto;
+        margin: 0 25px;
+        padding: 20px;
+    }
+
+    .total-income,
+    .budget-balance,
+    .total-expenses{
+        text-align: center;
+        font-size: 1.8em;
+
+        .box-headline{
+            margin: 30px 0;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+    }
+
+    .total-income{
+        border: 1px solid $flat-green;
+        background-color: #2ecc7048;
+    }
+
+    .total-expenses{
+        border: 1px solid $flat-red;
+        background-color: #e74d3c4f;
+    }
+
+}
+
+
+.middle{
+    position: relative;
+    padding: 50px 0;
+    background-color: rgba(255, 255, 255, 0.356);
+
+    .close-icon{
+        position: absolute;
+        right: 35px;
+        top: 20px;
+        font-size: 2em;
+        cursor: pointer;
+        transition: color .2s ease-in-out;
+
+        &:hover{
+            color: $flat-red;
+        }
+    }
+
+    .record-form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+
+        .record-type{
+            width: $form-width;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: 400;
+            border-radius: .35em;
+
+            a{
+                padding: 10px 20px;
+                text-align: center;
+                border: none;
+                width: 50%;
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        form{
+            .form-list{
+                width: $form-width;
+                margin: 0 auto;
+                padding: 10px 20px;
+                background-color: rgba(255, 255, 255, 0.40);
+                border-radius: .35em;
+                label{
+                    display: block;
+                    margin-bottom: 5px;
+                    font-weight: 400;
+                }
+
+                li{
+                    display: block;
+                    margin-bottom: 10px;
+                }
+
+                input,
+                textarea,
+                select{
+                    width: 100%;
+                    border: 1px solid #eeeeee;
+                    border-radius: .2em;
+                    height: 40px;
+                    padding: 5px 10px;
+                }
+                textarea{
+                    max-height: 150px;
+                    max-width: 100%;
+                }
+            }
+        }
+
+        .btn-record{
+            width: $form-width;
+            margin: 0 auto;
+            margin-top: 20px;
+            font-size: 1.3em;
+            color: white;
+            letter-spacing: 1px;
+            padding: 10px 10px;
+            text-align: center;
+            border: none;
+            border-radius: .35em;
+            background-color: #555555;
+            cursor: pointer;
+            transition: background-color .2s ease-in-out, color .2s ease-in-out;
+
+            &:hover{
+                background-color: #ffff;
+                color: #000000;
+            }
+            i{
+                margin-left: 10px;
+                font-size: 1.5em;
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+.active-record-type-green{
+    background-color: $flat-green;
+}
+
+.active-record-type-red{
+    background-color: $flat-red;
+}
+
+.record-type-container-expenses{
+    border: 2px solid $flat-red;
+}
+.record-type-container-income{
+    border: 2px solid $flat-green;
+}
+
+
+.bottom{
+    height: 60%;
+    padding: 30px 0;
+    font-weight: 400;
+    font-size: 1.2em;
+
+    .record-list{
+        display: block;
+
+        .record-list-item{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px auto;
+            width: 800px;
+            height: 60px;
+            padding: 10px 25px;
+            border-radius: .25em;
+            background-color: #ffffff79;
+
+
+            .head-of-record{
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
+                align-items: center;
+    
+                input[type=checkbox]{
+                    margin-right: 10px;
+                }
+            }
+    
+            .amount-container{
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
+                transition: all .3s ease-in-out;
+    
+                i{
+                    margin-left: 20px;
+                    cursor: pointer;
+
+                    &:hover{
+                        color: $flat-red;
+                    }
+                }
+                .hidden{
+                    display: none;
+                    opacity: 0;
+                }
+            }
+            &:hover{
+                .amount-container{
+                    .hidden{
+                        display: block;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}

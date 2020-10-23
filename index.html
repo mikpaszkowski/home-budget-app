@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="./vendors/styles/grid.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <title>Budgetry</title>
+</head>
+
+<body>
+
+    <section class="top">
+        <div class="budget-data">
+            <div class="total-income box">
+                <div class="total-income-name box-headline">Incomes</div>
+                <div class="total-income-number">+ 54033.34</div>
+            </div>
+            <div class="budget-balance box">
+                <div class="budget-title box-headline">Balance</div>
+                <div class="balance-total">+ 34555.89</div>
+            </div>
+            <div class="total-expenses box">
+                <div class="total-expenses-name box-headline">Expenses</div>
+                <div class="total-expenses-number">- 18232.34</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="middle">
+        <div class="close-icon"><i class="ion-ios-close-outline"></i></div>
+        <div class="record-form">
+            <form>
+                <div class="record-type record-type-container-income">
+                    <a class="btn-type income active-record-type-green">Income</a>
+                    <a class="btn-type expense">Expenses</a>
+                </div>
+                <ul class="form-list">
+                    <li>
+                        <label for="amount">Amount</label>
+                        <input type="text" placeholder="0" name="amount">
+                    </li>
+                    <li>
+                        <label for="category">Category</label>
+                        <select name="category" id="category">
+                            <option value="" disabled selected>Choose</option>
+                            <option value="food">Food</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="housing">Housing</option>
+                            <option value="transport">Transport</option>
+                            <option value="vehicle">Vehicle</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="income">Income</option>
+                            <option value="investments">Investments</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="date">Date</label>
+                        <input type="date" name="date">
+                    </li>
+                    <li>
+                        <label for="time">Time</label>
+                        <input type="time" name="time" placeholder="choose">
+                    </li>
+                    <li>
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description" placeholder="Enter some note"></textarea>
+                    </li>
+                </ul>
+
+            </form>
+            <button class="btn-record">Add record</button>
+        </div>
+    </section>
+    <section class="bottom">
+        <div class="record-list">
+
+            <div class="record-list-item" id="record-0">
+                <div class="head-of-record">
+                    <input type="checkbox" name="select">
+                    <div class="record-name">Some name</div>
+                </div>
+                <div class="amount-container">
+                    <div class="amount-value">+ 2133,00</div>
+                    <div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div>
+                </div>
+            </div>
+            <div class="record-list-item" id="record-0">
+                <div class="head-of-record">
+                    <input type="checkbox" name="select">
+                    <div class="record-name">Some name</div>
+                </div>
+                <div class="amount-container">
+                    <div class="amount-value">+ 2133,00</div>
+                    <div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div>
+                </div>
+            </div>
+            <div class="record-list-item" id="record-0">
+                <div class="head-of-record">
+                    <input type="checkbox" name="select">
+                    <div class="record-name">Some name</div>
+                </div>
+                <div class="amount-container">
+                    <div class="amount-value">+ 2133,00</div>
+                    <div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div>
+                </div>
+            </div>
+            <div class="record-list-item" id="record-0">
+                <div class="head-of-record">
+                    <input type="checkbox" name="select">
+                    <div class="record-name">Some name</div>
+                </div>
+                <div class="amount-container">
+                    <div class="amount-value">+ 2133,00</div>
+                    <div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <script src="/app.js"></script>
+</body>
+
+</html>
