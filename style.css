@@ -51,13 +51,14 @@ html {
 .budget-data .budget-balance,
 .budget-data .total-expenses {
   text-align: center;
-  font-size: 1.8em;
+  font-size: 1.3em;
+  text-transform: uppercase;
 }
 
 .budget-data .total-income .box-headline,
 .budget-data .budget-balance .box-headline,
 .budget-data .total-expenses .box-headline {
-  margin: 30px 0;
+  margin: 15px 0;
   font-weight: 400;
   letter-spacing: 1px;
 }

@@ -35,17 +35,17 @@
         <div class="record-form">
             <form>
                 <div class="record-type record-type-container-income">
-                    <a class="btn-type income active-record-type-green">Income</a>
-                    <a class="btn-type expense">Expenses</a>
+                    <a class="btn-type income-btn active-record-type-green">Income</a>
+                    <a class="btn-type expense-btn">Expenses</a>
                 </div>
                 <ul class="form-list">
                     <li>
                         <label for="amount">Amount</label>
-                        <input type="text" placeholder="0" name="amount">
+                        <input type="text" placeholder="0" name="amount" class="input_amount">
                     </li>
                     <li>
                         <label for="category">Category</label>
-                        <select name="category" id="category">
+                        <select name="category" id="category" class="input_category">
                             <option value="" disabled selected>Choose</option>
                             <option value="food">Food</option>
                             <option value="shopping">Shopping</option>
@@ -61,15 +61,15 @@
                     </li>
                     <li>
                         <label for="date">Date</label>
-                        <input type="date" name="date">
+                        <input type="date" name="date" class="input_date">
                     </li>
                     <li>
                         <label for="time">Time</label>
-                        <input type="time" name="time" placeholder="choose">
+                        <input type="time" name="time" placeholder="choose" class="input_time">
                     </li>
                     <li>
                         <label for="description">Description</label>
-                        <textarea name="description" id="description" placeholder="Enter some note"></textarea>
+                        <textarea name="description" id="description" class="input_description" placeholder="Enter some note"></textarea>
                     </li>
                 </ul>
 
