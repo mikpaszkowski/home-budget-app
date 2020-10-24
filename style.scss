@@ -207,7 +207,16 @@ html{
     .record-list{
         display: block;
 
-        .record-list-item{
+        .record-income-item{
+            background-color: #7bffb27e;
+        }
+
+        .record-expense-item{
+            background-color: #ff625181;
+        }
+
+        .record-income-item,
+        .record-expense-item{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -217,7 +226,18 @@ html{
             height: 60px;
             padding: 10px 25px;
             border-radius: .25em;
-            background-color: #ffffff79;
+            animation: .5s both record_animation;
+
+            @keyframes record_animation {
+                from{
+                    opacity: 0;
+                    transform: translateY(-50%);
+                }
+                to{
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
 
             .head-of-record{
