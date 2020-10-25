@@ -5,6 +5,7 @@ $font-stack: 'Lato', sans-serif;
 $flat-green: #2ecc71;
 $flat-red: #e74c3c;
 $form-width: 400px;
+$record-width: 800px;
 
 
 *{
@@ -78,6 +79,7 @@ html{
 
 .middle{
     position: relative;
+    display: block;
     padding: 50px 0;
     background-color: rgba(255, 255, 255, 0.356);
 
@@ -203,6 +205,7 @@ html{
     padding: 30px 0;
     font-weight: 400;
     font-size: 1.2em;
+    display: block;
 
     .record-list{
         display: block;
@@ -222,7 +225,8 @@ html{
             justify-content: space-between;
             align-items: center;
             margin: 15px auto;
-            width: 800px;
+            position: relative;
+            width: $record-width;
             height: 60px;
             padding: 10px 25px;
             border-radius: .25em;
@@ -239,6 +243,14 @@ html{
                 }
             }
 
+            .date{
+                position: absolute;
+                display: block;
+                font-size: .8em;
+                width: 100px;
+                margin: 0 ($record-width/2.2);
+            }
+
 
             .head-of-record{
                 display: flex;
@@ -247,7 +259,7 @@ html{
                 align-items: center;
     
                 input[type=checkbox]{
-                    margin-right: 10px;
+                    margin-right: 25px;
                 }
             }
     
@@ -281,3 +293,33 @@ html{
         }
     }
 }
+
+
+.animation-class{
+    animation: 1s both middle_animation;
+}
+
+@keyframes middle_animation{
+    from{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to{
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+.animation-class-bottom{
+    animation: 1s both bottom_animation;
+}
+
+@keyframes bottom_animation{
+    from{
+        transform: translateY(0);
+    }
+    to{
+        transform: translateY(-70%);
+    }
+}
+
+

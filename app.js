@@ -30,7 +30,18 @@ var serviceController = (function () {
             exp: 0,
             inc: 0
         },
-    }
+        budgetBalance: 0,
+    };
+
+    var calculateTotal = function(type){
+        var sum = 0;
+        
+        data.allRecords[type].forEach(function(curr) {
+            sum += curr.amount;
+            console.log("sum : " + sum);
+        })
+        data.totals[type] = sum;
+    };
 
     return {
         addItem: function (type, amount, cat, date, time, des) {
@@ -50,6 +61,25 @@ var serviceController = (function () {
             data.allRecords[type].push(newRecord);
             return newRecord;
         },
+
+        calcualteBudget: function() {
+
+            //income and expenses
+            calculateTotal('exp');
+            calculateTotal('inc');
+
+            //balance: income - expense
+            data.budgetBalance = data.totals.inc - data.totals.exp;
+        },
+
+        getBudgetData: function() {
+            return {
+                budgetBalance: data.budgetBalance,
+                totalIncome: data.totals.inc,
+                totalExpenses: data.totals.exp,
+            };
+        },
+
         displayData: function () {
             console.log(data.allRecords);
         }
@@ -71,6 +101,9 @@ var viewController = (function () {
         typeBtnIncome: '.income-btn',
         closeIconBtn: '.close-icon',
         recordContainerList: '.record-list',
+        totalIncomeLabel: '.total-income-value',
+        totalExpensesLabel: '.total-expenses-value',
+        totalBudgetBalanceLabel: '.balance-total-value',
     }
 
     var DOMStyleElements = {
@@ -93,7 +126,7 @@ var viewController = (function () {
             return {
                 type: typeButton,
                 category: document.querySelector(DOMelements.inputCategory).value,
-                amount: document.querySelector(DOMelements.inputAmount).value,
+                amount: parseFloat(document.querySelector(DOMelements.inputAmount).value),
                 date: document.querySelector(DOMelements.inputDate).value,
                 time: document.querySelector(DOMelements.inputTime).value,
                 description: document.querySelector(DOMelements.inputDescription).value
@@ -103,7 +136,7 @@ var viewController = (function () {
             var html, newHtml, element;
 
             if (type === 'inc') {
-                html = '<div class="record-income-item" id="income-record-%id%"><div class="head-of-record"><input type="checkbox" name="select"><div class="record-name">%des%</div></div><div class="amount-container"><div class="amount-value">+%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
+                html = '<div class="record-income-item" id="income-record-%id%"><div class="head-of-record"><input type="checkbox" name="select"><div class="record-name">%des%</div></div><div class="date">%date%</div><div class="amount-container"><div class="amount-value">+%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
             } else if (type === 'exp') {
                 html = '<div class="record-expense-item" id="expense-record-%id%"><div class="head-of-record"><input type = "checkbox" name = "select"><div class="record-name">%des%</div></div><div class="amount-container"><div class="amount-value">-%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
             }
@@ -111,8 +144,49 @@ var viewController = (function () {
             newHtml = html.replace('%id%', obj.id);
             newHtml = newHtml.replace('%des%', obj.description);
             newHtml = newHtml.replace('%amount%', obj.amount);
+            newHtml = newHtml.replace('%date%', obj.date);
 
             document.querySelector(DOMelements.recordContainerList).insertAdjacentHTML('beforeend', newHtml);
+        },
+
+        clearFields: function () {
+            var fields;
+
+            fields = document.querySelectorAll(
+                DOMelements.inputAmount + ', '
+                + DOMelements.inputAmount + ', '
+                + DOMelements.inputDate + ', '
+                + DOMelements.inputTime + ', '
+                + DOMelements.inputDescription);
+
+            //creating a copy of a list as a array
+            var fieldsArray = Array.prototype.slice.call(fields);
+            fieldsArray.forEach(function (cur) {
+                cur.value = "";
+            })
+        },
+
+        isFormValid: function (obj) {
+            var isValid = true;
+
+            if (obj.amount <= 0 || isNaN(obj.amount)) { isValid = false; }
+            if (obj.category === "") { isValid = false; }
+            if (obj.date === "") { isValid = false; }
+            if (obj.time === "") { isValid = false; }
+            if (obj.description === "") { isValid = false; }
+
+            return isValid;
+        },
+
+        updateBudgetView: function(obj, type) {
+            var beforeExpContent = '';
+
+            if(type === 'exp'){
+                beforeExpContent = '-  ';
+            }
+            document.querySelector(DOMelements.totalIncomeLabel).textContent = obj.totalIncome;
+            document.querySelector(DOMelements.totalExpensesLabel).textContent = beforeExpContent + obj.totalExpenses;
+            document.querySelector(DOMelements.totalBudgetBalanceLabel).textContent = obj.budgetBalance;
 
         },
 
@@ -141,6 +215,7 @@ var appController = (function () {
         document.addEventListener('keypress', function (e) {
             if (e.keyCode === 13 && e.which === 13) {
                 addItemController();
+                e.preventDefault();
             }
         });
 
@@ -164,8 +239,22 @@ var appController = (function () {
 
         document.querySelector(DOM.closeIconBtn).addEventListener('click', function () {
 
-            document.querySelector(DOMStyle.sectionMiddle).style.display = 'none';
+            document.querySelector(DOMStyle.sectionMiddle).classList.add('animation-class');
+            setTimeout(() => {
+                document.querySelector(DOMStyle.sectionMiddle).style.display = 'none';
+            }, 1000);
         })
+    };
+
+    var updateBudget = function (type) {
+
+        //calculate te budget balance
+        serviceController.calcualteBudget();
+
+        //return the budget
+        var budget = serviceController.getBudgetData();
+        //displaying the budget on the front
+        viewController.updateBudgetView(budget, type);
     }
 
 
@@ -178,16 +267,22 @@ var appController = (function () {
         input = viewController.getInput();
         console.log(input);
 
-        // 2. Add the item to the budget controller
-        newRecord = serviceController.addItem(input.type, input.amount,
-            input.category, input.date, input.time, input.description);
-        serviceController.displayData();
+        if (viewController.isFormValid(input)) {
+            // 2. Add the item to the budget controller
+            newRecord = serviceController.addItem(input.type, input.amount,
+                input.category, input.date, input.time, input.description);
+            serviceController.displayData();
 
-        // 3. Add the item to the UI
-        viewController.addListRecord(newRecord, input.type);
+            // 3. Add the item to the UI
+            viewController.addListRecord(newRecord, input.type);
 
-        // 4. Calculate the budget
-        // 5. Display the budget on the UI
+            // 4. Clear fields after adding record to the list 
+            viewController.clearFields();
+
+            serviceController.calcualteBudget();
+            //Calculate and update budget
+            updateBudget(input.type);
+        }
     }
 
     return {

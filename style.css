@@ -75,6 +75,7 @@ html {
 
 .middle {
   position: relative;
+  display: block;
   padding: 50px 0;
   background-color: rgba(255, 255, 255, 0.356);
 }
@@ -213,6 +214,7 @@ html {
   padding: 30px 0;
   font-weight: 400;
   font-size: 1.2em;
+  display: block;
 }
 
 .bottom .record-list {
@@ -243,6 +245,7 @@ html {
       -ms-flex-align: center;
           align-items: center;
   margin: 15px auto;
+  position: relative;
   width: 800px;
   height: 60px;
   padding: 10px 25px;
@@ -277,6 +280,15 @@ html {
   }
 }
 
+.bottom .record-list .record-income-item .date,
+.bottom .record-list .record-expense-item .date {
+  position: absolute;
+  display: block;
+  font-size: .8em;
+  width: 100px;
+  margin: 0 363.63636px;
+}
+
 .bottom .record-list .record-income-item .head-of-record,
 .bottom .record-list .record-expense-item .head-of-record {
   display: -webkit-box;
@@ -296,7 +308,7 @@ html {
 
 .bottom .record-list .record-income-item .head-of-record input[type=checkbox],
 .bottom .record-list .record-expense-item .head-of-record input[type=checkbox] {
-  margin-right: 10px;
+  margin-right: 25px;
 }
 
 .bottom .record-list .record-income-item .amount-container,
@@ -336,5 +348,63 @@ html {
 .bottom .record-list .record-expense-item:hover .amount-container .hidden {
   display: block;
   opacity: 1;
+}
+
+.animation-class {
+  -webkit-animation: 1s both middle_animation;
+          animation: 1s both middle_animation;
+}
+
+@-webkit-keyframes middle_animation {
+  from {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+}
+
+@keyframes middle_animation {
+  from {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+}
+
+.animation-class-bottom {
+  -webkit-animation: 1s both bottom_animation;
+          animation: 1s both bottom_animation;
+}
+
+@-webkit-keyframes bottom_animation {
+  from {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  to {
+    -webkit-transform: translateY(-70%);
+            transform: translateY(-70%);
+  }
+}
+
+@keyframes bottom_animation {
+  from {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  to {
+    -webkit-transform: translateY(-70%);
+            transform: translateY(-70%);
+  }
 }
 /*# sourceMappingURL=style.css.map */
