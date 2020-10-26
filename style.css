@@ -73,6 +73,37 @@ html {
   background-color: #e74d3c4f;
 }
 
+.budget-data .budget-balance {
+  width: 300px;
+  position: relative;
+  height: auto;
+  font-size: 1.6em;
+  border: 1px solid white;
+  -webkit-box-shadow: 0px 1px 8px white;
+          box-shadow: 0px 1px 8px white;
+}
+
+.budget-data .budget-balance .percentage {
+  background: #e74d3cd8;
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+.budget-data .budget-balance .percentage .percentage-value {
+  text-align: center;
+  font-size: .7em;
+  font-weight: 400;
+  padding: 15px 10px;
+}
+
+.budget-data .budget-balance .budget-title {
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
 .middle {
   position: relative;
   display: block;
@@ -406,5 +437,9 @@ html {
     -webkit-transform: translateY(-70%);
             transform: translateY(-70%);
   }
+}
+
+.hidden {
+  opacity: 1;
 }
 /*# sourceMappingURL=style.css.map */

@@ -10,7 +10,17 @@ var serviceController = (function () {
         this.date = date;
         this.time = time;
         this.description = description;
-    }
+        this.percentage = -1;
+    };
+
+    Expense.prototype.calculatePercentage = function(totalIncomeValue) {
+
+        if(totalIncomeValue > 0){
+            this.percentage = Math.round((this.amount / totalIncomeValue) * 100);
+        }
+    };
+    Expense.prototype.getPercentage = function() { return this.percentage; }
+
     var Income = function (id, amount, category, date, time, description) {
 
         this.id = id;
@@ -19,7 +29,7 @@ var serviceController = (function () {
         this.date = date;
         this.time = time;
         this.description = description;
-    }
+    };
 
     var data = {
         allRecords: {
@@ -31,6 +41,7 @@ var serviceController = (function () {
             inc: 0
         },
         budgetBalance: 0,
+        percentageOfExp: 0,
     };
 
     var calculateTotal = function(type){
@@ -77,7 +88,6 @@ var serviceController = (function () {
             }
         },
 
-
         calcualteBudget: function() {
 
             //income and expenses
@@ -86,10 +96,32 @@ var serviceController = (function () {
 
             //balance: income - expense
             data.budgetBalance = data.totals.inc - data.totals.exp;
+            if(data.totals.inc > 0){
+                data.percentageOfExp = Math.round((data.totals.exp / data.totals.inc) * 100);
+            }else{
+                data.percentageOfExp = -1;
+            }
+        },
+
+        calculatePercentages: function() {
+
+            data.allRecords.exp.forEach(function(curr) {
+                curr.calculatePercentage(data.totals.inc);
+            })
+        },
+
+        getPercentages: function() {
+
+            var allPercentages = data.allRecords.exp.map(function(curr) {
+
+                return curr.getPercentage();
+            });
+            return allPercentages;
         },
 
         getBudgetData: function() {
             return {
+                percentage: data.percentageOfExp,
                 budgetBalance: data.budgetBalance,
                 totalIncome: data.totals.inc,
                 totalExpenses: data.totals.exp,
@@ -120,6 +152,7 @@ var viewController = (function () {
         totalIncomeLabel: '.total-income-value',
         totalExpensesLabel: '.total-expenses-value',
         totalBudgetBalanceLabel: '.balance-total-value',
+        percentageTotal: '.percentage-value',
     }
 
     var DOMStyleElements = {
@@ -201,7 +234,7 @@ var viewController = (function () {
             return isValid;
         },
 
-        updateBudgetView: function(obj, type) {
+        updateBudgetView: function(obj) {
             var beforeExpContent = '';
 
             if(obj.totalExpenses !== 0){
@@ -211,7 +244,7 @@ var viewController = (function () {
             document.querySelector(DOMelements.totalIncomeLabel).textContent = obj.totalIncome;
             document.querySelector(DOMelements.totalExpensesLabel).textContent = beforeExpContent + obj.totalExpenses;
             document.querySelector(DOMelements.totalBudgetBalanceLabel).textContent = obj.budgetBalance;
-
+            document.querySelector(DOMelements.percentageTotal).textContent = '- ' + obj.percentage + '%';
         },
 
 
@@ -272,7 +305,7 @@ var appController = (function () {
         })
     };
 
-    var updateBudget = function (type) {
+    var updateBudget = function () {
 
         //calculate te budget balance
         serviceController.calcualteBudget();
@@ -280,7 +313,20 @@ var appController = (function () {
         //return the budget
         var budget = serviceController.getBudgetData();
         //displaying the budget on the front
-        viewController.updateBudgetView(budget, type);
+        console.log(budget);
+        viewController.updateBudgetView(budget);
+    }
+
+    var updatePercentages = function() {
+
+        //calculations
+        serviceController.calculatePercentages();
+
+        //reading data from budget controller
+        var percentageData = serviceController.getPercentages();
+
+        //update template with data
+        console.log(percentageData);
     }
 
 
@@ -308,6 +354,9 @@ var appController = (function () {
             serviceController.calcualteBudget();
             //Calculate and update budget
             updateBudget(input.type);
+
+            //calculate and update percentages
+            updatePercentages();
         }
     };
 

@@ -1,21 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap');
 
 
-$font-stack: 'Lato', sans-serif;
+$font-stack: 'Lato',
+sans-serif;
 $flat-green: #2ecc71;
 $flat-red: #e74c3c;
 $form-width: 400px;
 $record-width: 800px;
 
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body, 
-html{
+body,
+html {
     position: relative;
     font-family: $font-stack;
     font-size: 16px;
@@ -23,26 +24,26 @@ html{
     color: white;
     height: 100vh;
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 10%, rgba(65, 65, 65, 0.822) 50%, rgb(39, 39, 39) 100%),
-     url(./assets/scott-graham-5fNmWej4tAA-unsplash.jpg);
+        url(./assets/scott-graham-5fNmWej4tAA-unsplash.jpg);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
     text-rendering: optimizeLegibility;
 }
 
-.top{
+.top {
     padding: 60px 0;
     border-bottom: 1px solid rgb(190, 190, 190);
 }
 
-.budget-data{
+.budget-data {
     position: relative;
     display: flex;
     justify-content: center;
     margin: 0 auto;
     margin-bottom: 40px;
 
-    .box{
+    .box {
         display: inline-block;
         width: 200px;
         height: auto;
@@ -52,38 +53,68 @@ html{
 
     .total-income,
     .budget-balance,
-    .total-expenses{
+    .total-expenses {
         text-align: center;
         font-size: 1.3em;
         text-transform: uppercase;
 
-        .box-headline{
+        .box-headline {
             margin: 15px 0;
             font-weight: 400;
             letter-spacing: 1px;
         }
     }
 
-    .total-income{
+    .total-income {
         border: 1px solid $flat-green;
         background-color: #2ecc7048;
     }
 
-    .total-expenses{
+    .total-expenses {
         border: 1px solid $flat-red;
         background-color: #e74d3c4f;
+    }
+
+    .budget-balance {
+        width: 300px;
+        position: relative;
+        height: auto;
+        font-size: 1.6em;
+        border: 1px solid white;
+        box-shadow: 0px 1px 8px white;
+
+        .percentage {
+            background: #e74d3cd8;
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            margin: 0 auto;
+            border-radius: 50%;
+    
+            .percentage-value {
+                text-align: center;
+                font-size: .7em;
+                font-weight: 400;
+                padding: 15px 10px;
+            }
+        }
+
+        .budget-title {
+            margin-top: 5px;
+            margin-bottom: 25px;
+        }
     }
 
 }
 
 
-.middle{
+.middle {
     position: relative;
     display: block;
     padding: 50px 0;
     background-color: rgba(255, 255, 255, 0.356);
 
-    .close-icon{
+    .close-icon {
         position: absolute;
         right: 35px;
         top: 20px;
@@ -91,18 +122,18 @@ html{
         cursor: pointer;
         transition: color .2s ease-in-out;
 
-        &:hover{
+        &:hover {
             color: $flat-red;
         }
     }
 
-    .record-form{
+    .record-form {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        
 
-        .record-type{
+
+        .record-type {
             width: $form-width;
             display: flex;
             justify-content: center;
@@ -112,7 +143,7 @@ html{
             font-weight: 400;
             border-radius: .35em;
 
-            a{
+            a {
                 padding: 10px 20px;
                 text-align: center;
                 border: none;
@@ -122,41 +153,43 @@ html{
             }
         }
 
-        form{
-            .form-list{
+        form {
+            .form-list {
                 width: $form-width;
                 margin: 0 auto;
                 padding: 10px 20px;
                 background-color: rgba(255, 255, 255, 0.40);
                 border-radius: .35em;
-                label{
+
+                label {
                     display: block;
                     margin-bottom: 5px;
                     font-weight: 400;
                 }
 
-                li{
+                li {
                     display: block;
                     margin-bottom: 10px;
                 }
 
                 input,
                 textarea,
-                select{
+                select {
                     width: 100%;
                     border: 1px solid #eeeeee;
                     border-radius: .2em;
                     height: 40px;
                     padding: 5px 10px;
                 }
-                textarea{
+
+                textarea {
                     max-height: 150px;
                     max-width: 100%;
                 }
             }
         }
 
-        .btn-record{
+        .btn-record {
             width: $form-width;
             margin: 0 auto;
             margin-top: 20px;
@@ -171,11 +204,12 @@ html{
             cursor: pointer;
             transition: background-color .2s ease-in-out, color .2s ease-in-out;
 
-            &:hover{
+            &:hover {
                 background-color: #ffff;
                 color: #000000;
             }
-            i{
+
+            i {
                 margin-left: 10px;
                 font-size: 1.5em;
                 font-weight: 400;
@@ -184,42 +218,43 @@ html{
     }
 }
 
-.active-record-type-green{
+.active-record-type-green {
     background-color: $flat-green;
 }
 
-.active-record-type-red{
+.active-record-type-red {
     background-color: $flat-red;
 }
 
-.record-type-container-expenses{
+.record-type-container-expenses {
     border: 2px solid $flat-red;
 }
-.record-type-container-income{
+
+.record-type-container-income {
     border: 2px solid $flat-green;
 }
 
 
-.bottom{
+.bottom {
     height: 60%;
     padding: 30px 0;
     font-weight: 400;
     font-size: 1.2em;
     display: block;
 
-    .record-list{
+    .record-list {
         display: block;
 
-        .record-inc-item{
+        .record-inc-item {
             background-color: #7bffb27e;
         }
 
-        .record-exp-item{
+        .record-exp-item {
             background-color: #ff625181;
         }
 
         .record-inc-item,
-        .record-exp-item{
+        .record-exp-item {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -233,17 +268,18 @@ html{
             animation: .5s both record_animation;
 
             @keyframes record_animation {
-                from{
+                from {
                     opacity: 0;
                     transform: translateY(-50%);
                 }
-                to{
+
+                to {
                     opacity: 1;
                     transform: translateY(0);
                 }
             }
 
-            .date{
+            .date {
                 position: absolute;
                 display: block;
                 font-size: .8em;
@@ -252,39 +288,41 @@ html{
             }
 
 
-            .head-of-record{
+            .head-of-record {
                 display: flex;
                 justify-content: center;
                 flex-direction: row;
                 align-items: center;
-    
-                input[type=checkbox]{
+
+                input[type=checkbox] {
                     margin-right: 25px;
                 }
             }
-    
-            .amount-container{
+
+            .amount-container {
                 display: flex;
                 justify-content: center;
                 flex-direction: row;
                 transition: all .3s ease-in-out;
-    
-                i{
+
+                i {
                     margin-left: 20px;
                     cursor: pointer;
 
-                    &:hover{
+                    &:hover {
                         color: $flat-red;
                     }
                 }
-                .hidden{
+
+                .hidden {
                     display: none;
                     opacity: 0;
                 }
             }
-            &:hover{
-                .amount-container{
-                    .hidden{
+
+            &:hover {
+                .amount-container {
+                    .hidden {
                         display: block;
                         opacity: 1;
                     }
@@ -295,31 +333,36 @@ html{
 }
 
 
-.animation-class{
+.animation-class {
     animation: 1s both middle_animation;
 }
 
-@keyframes middle_animation{
-    from{
+@keyframes middle_animation {
+    from {
         opacity: 1;
         transform: translateY(0);
     }
-    to{
+
+    to {
         opacity: 0;
         transform: translateY(-100%);
     }
 }
-.animation-class-bottom{
+
+.animation-class-bottom {
     animation: 1s both bottom_animation;
 }
 
-@keyframes bottom_animation{
-    from{
+@keyframes bottom_animation {
+    from {
         transform: translateY(0);
     }
-    to{
+
+    to {
         transform: translateY(-70%);
     }
 }
 
-
+.hidden{
+    opacity: 1;
+}
