@@ -49,7 +49,7 @@ var serviceController = (function () {
         
         data.allRecords[type].forEach(function(curr) {
             sum += curr.amount;
-            console.log("sum : " + sum);
+
         })
         data.totals[type] = sum;
     };
@@ -74,13 +74,12 @@ var serviceController = (function () {
         },
 
         deleteItem: function(type, id){
+
             var index;
-            console.log(id);
             var ids = data.allRecords[type].map(function(curr) {
                 return curr.id;
             });
-            console.log(ids);
-            console.log(typeof(id));
+
             index = ids.indexOf(id);
             
             if(index !== -1){
@@ -153,6 +152,7 @@ var viewController = (function () {
         totalExpensesLabel: '.total-expenses-value',
         totalBudgetBalanceLabel: '.balance-total-value',
         percentageTotal: '.percentage-value',
+        dateHeadlineContent: '.date-headline-month',
     }
 
     var DOMStyleElements = {
@@ -162,6 +162,30 @@ var viewController = (function () {
         incomeBtnActive: 'active-record-type-green',
         sectionMiddle: '.middle',
     }
+
+    
+    var formatNumber = function(num, type){
+        var numSplit, int, dec, sign;
+
+        num = Math.abs(num);
+        num = num.toFixed(2);
+
+        numSplit = num.split('.');
+
+        int = numSplit[0];
+        if(int.length > 3){
+            int = int.substr(0, int.length - 3) + ',' + int.substr(int.length - 3, 3);
+        }
+        dec = numSplit[1];
+        
+        return (type === 'exp' ? '-' : '+') + ' ' + int + '.' + dec; 
+    };
+
+    var nodeListForEach = function(list, callback) {
+        for(var i = 0; i < list.length; i++){
+            callback(list[i], i);
+        }
+    };
 
     return {
         getInput: function () {
@@ -185,14 +209,14 @@ var viewController = (function () {
             var html, newHtml, element;
 
             if (type === 'inc') {
-                html = '<div class="record-inc-item" id="inc-record-%id%"><div class="head-of-record"><input type="checkbox" name="select"><div class="record-name">%des%</div></div><div class="date">%date%</div><div class="amount-container"><div class="amount-value">+%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
+                html = '<div class="record-inc-item" id="inc-record-%id%"><div class="head-of-record"><input type="checkbox" name="select"><div class="record-name">%des%</div></div><div class="date">%date%</div><div class="amount-container"><div class="amount-value">%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
             } else if (type === 'exp') {
-                html = '<div class="record-exp-item" id="exp-record-%id%"><div class="head-of-record"><input type = "checkbox" name = "select"><div class="record-name">%des%</div></div><div class="amount-container"><div class="amount-value">-%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
+                html = '<div class="record-exp-item" id="exp-record-%id%"><div class="head-of-record"><input type = "checkbox" name = "select"><div class="record-name">%des%</div></div><div class="amount-container"><div class="amount-value">%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
             }
 
             newHtml = html.replace('%id%', obj.id);
             newHtml = newHtml.replace('%des%', obj.description);
-            newHtml = newHtml.replace('%amount%', obj.amount);
+            newHtml = newHtml.replace('%amount%', formatNumber(obj.amount, type));
             newHtml = newHtml.replace('%date%', obj.date);
 
             document.querySelector(DOMelements.recordContainerList).insertAdjacentHTML('beforeend', newHtml);
@@ -235,18 +259,29 @@ var viewController = (function () {
         },
 
         updateBudgetView: function(obj) {
-            var beforeExpContent = '';
+            var type;
 
-            if(obj.totalExpenses !== 0){
-                beforeExpContent = '-  ';
-            }
+            obj.budgetBalance > 0 ? type = 'inc' : 'exp';
 
-            document.querySelector(DOMelements.totalIncomeLabel).textContent = obj.totalIncome;
-            document.querySelector(DOMelements.totalExpensesLabel).textContent = beforeExpContent + obj.totalExpenses;
-            document.querySelector(DOMelements.totalBudgetBalanceLabel).textContent = obj.budgetBalance;
-            document.querySelector(DOMelements.percentageTotal).textContent = '- ' + obj.percentage + '%';
+            document.querySelector(DOMelements.totalIncomeLabel).textContent = formatNumber(obj.totalIncome, 'exp');
+            document.querySelector(DOMelements.totalExpensesLabel).textContent = formatNumber(obj.totalExpenses, 'exp')
+            document.querySelector(DOMelements.totalBudgetBalanceLabel).textContent = formatNumber(obj.budgetBalance, type);
+            document.querySelector(DOMelements.percentageTotal).textContent = formatNumber(obj.percentage, 'exp') + '%';
         },
 
+        displayMonth: function() {
+            var now, year, month;
+
+            now = new Date();
+
+            months = ['Januray', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+             'September', 'October', 'November', 'December'];
+
+            year = now.getFullYear();
+            month = months[now.getMonth()];
+            document.querySelector(DOMelements.dateHeadlineContent).textContent = month + ' ' + year; 
+
+        },
 
         getDOMelements: function () {
             return DOMelements;
@@ -294,7 +329,7 @@ var appController = (function () {
             var recordTypes = document.querySelector(DOM.recordTypeContainer);
             recordTypes.classList.remove(DOMStyle.expenseTypeContainer);
             recordTypes.classList.add(DOMStyle.incomeTypeContainer);
-        })
+        });
 
         document.querySelector(DOM.closeIconBtn).addEventListener('click', function () {
 
@@ -302,7 +337,9 @@ var appController = (function () {
             setTimeout(() => {
                 document.querySelector(DOMStyle.sectionMiddle).style.display = 'none';
             }, 1000);
-        })
+        });
+
+        document.querySelector(DOM)
     };
 
     var updateBudget = function () {
@@ -384,6 +421,7 @@ var appController = (function () {
     return {
         init: function () {
             console.log('Application has started.');
+            viewController.displayMonth();
             setUpEventListeners();
         }
     }

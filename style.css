@@ -23,8 +23,15 @@ html {
 }
 
 .top {
-  padding: 60px 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
   border-bottom: 1px solid #bebebe;
+}
+
+.top .date-headline {
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 400;
 }
 
 .budget-data {
@@ -94,9 +101,9 @@ html {
 
 .budget-data .budget-balance .percentage .percentage-value {
   text-align: center;
-  font-size: .7em;
+  font-size: .5em;
   font-weight: 400;
-  padding: 15px 10px;
+  padding: 18px 14px;
 }
 
 .budget-data .budget-balance .budget-title {
