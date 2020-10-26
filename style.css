@@ -221,16 +221,16 @@ html {
   display: block;
 }
 
-.bottom .record-list .record-income-item {
+.bottom .record-list .record-inc-item {
   background-color: #7bffb27e;
 }
 
-.bottom .record-list .record-expense-item {
+.bottom .record-list .record-exp-item {
   background-color: #ff625181;
 }
 
-.bottom .record-list .record-income-item,
-.bottom .record-list .record-expense-item {
+.bottom .record-list .record-inc-item,
+.bottom .record-list .record-exp-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -280,8 +280,8 @@ html {
   }
 }
 
-.bottom .record-list .record-income-item .date,
-.bottom .record-list .record-expense-item .date {
+.bottom .record-list .record-inc-item .date,
+.bottom .record-list .record-exp-item .date {
   position: absolute;
   display: block;
   font-size: .8em;
@@ -289,8 +289,8 @@ html {
   margin: 0 363.63636px;
 }
 
-.bottom .record-list .record-income-item .head-of-record,
-.bottom .record-list .record-expense-item .head-of-record {
+.bottom .record-list .record-inc-item .head-of-record,
+.bottom .record-list .record-exp-item .head-of-record {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -306,13 +306,13 @@ html {
           align-items: center;
 }
 
-.bottom .record-list .record-income-item .head-of-record input[type=checkbox],
-.bottom .record-list .record-expense-item .head-of-record input[type=checkbox] {
+.bottom .record-list .record-inc-item .head-of-record input[type=checkbox],
+.bottom .record-list .record-exp-item .head-of-record input[type=checkbox] {
   margin-right: 25px;
 }
 
-.bottom .record-list .record-income-item .amount-container,
-.bottom .record-list .record-expense-item .amount-container {
+.bottom .record-list .record-inc-item .amount-container,
+.bottom .record-list .record-exp-item .amount-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -327,25 +327,25 @@ html {
   transition: all .3s ease-in-out;
 }
 
-.bottom .record-list .record-income-item .amount-container i,
-.bottom .record-list .record-expense-item .amount-container i {
+.bottom .record-list .record-inc-item .amount-container i,
+.bottom .record-list .record-exp-item .amount-container i {
   margin-left: 20px;
   cursor: pointer;
 }
 
-.bottom .record-list .record-income-item .amount-container i:hover,
-.bottom .record-list .record-expense-item .amount-container i:hover {
+.bottom .record-list .record-inc-item .amount-container i:hover,
+.bottom .record-list .record-exp-item .amount-container i:hover {
   color: #e74c3c;
 }
 
-.bottom .record-list .record-income-item .amount-container .hidden,
-.bottom .record-list .record-expense-item .amount-container .hidden {
+.bottom .record-list .record-inc-item .amount-container .hidden,
+.bottom .record-list .record-exp-item .amount-container .hidden {
   display: none;
   opacity: 0;
 }
 
-.bottom .record-list .record-income-item:hover .amount-container .hidden,
-.bottom .record-list .record-expense-item:hover .amount-container .hidden {
+.bottom .record-list .record-inc-item:hover .amount-container .hidden,
+.bottom .record-list .record-exp-item:hover .amount-container .hidden {
   display: block;
   opacity: 1;
 }

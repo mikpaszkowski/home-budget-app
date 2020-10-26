@@ -210,16 +210,16 @@ html{
     .record-list{
         display: block;
 
-        .record-income-item{
+        .record-inc-item{
             background-color: #7bffb27e;
         }
 
-        .record-expense-item{
+        .record-exp-item{
             background-color: #ff625181;
         }
 
-        .record-income-item,
-        .record-expense-item{
+        .record-inc-item,
+        .record-exp-item{
             display: flex;
             flex-direction: row;
             justify-content: space-between;

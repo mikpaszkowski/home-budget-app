@@ -62,6 +62,22 @@ var serviceController = (function () {
             return newRecord;
         },
 
+        deleteItem: function(type, id){
+            var index;
+            console.log(id);
+            var ids = data.allRecords[type].map(function(curr) {
+                return curr.id;
+            });
+            console.log(ids);
+            console.log(typeof(id));
+            index = ids.indexOf(id);
+            
+            if(index !== -1){
+                data.allRecords[type].splice(index, 1);
+            }
+        },
+
+
         calcualteBudget: function() {
 
             //income and expenses
@@ -136,9 +152,9 @@ var viewController = (function () {
             var html, newHtml, element;
 
             if (type === 'inc') {
-                html = '<div class="record-income-item" id="income-record-%id%"><div class="head-of-record"><input type="checkbox" name="select"><div class="record-name">%des%</div></div><div class="date">%date%</div><div class="amount-container"><div class="amount-value">+%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
+                html = '<div class="record-inc-item" id="inc-record-%id%"><div class="head-of-record"><input type="checkbox" name="select"><div class="record-name">%des%</div></div><div class="date">%date%</div><div class="amount-container"><div class="amount-value">+%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
             } else if (type === 'exp') {
-                html = '<div class="record-expense-item" id="expense-record-%id%"><div class="head-of-record"><input type = "checkbox" name = "select"><div class="record-name">%des%</div></div><div class="amount-container"><div class="amount-value">-%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
+                html = '<div class="record-exp-item" id="exp-record-%id%"><div class="head-of-record"><input type = "checkbox" name = "select"><div class="record-name">%des%</div></div><div class="amount-container"><div class="amount-value">-%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
             }
 
             newHtml = html.replace('%id%', obj.id);
@@ -147,6 +163,13 @@ var viewController = (function () {
             newHtml = newHtml.replace('%date%', obj.date);
 
             document.querySelector(DOMelements.recordContainerList).insertAdjacentHTML('beforeend', newHtml);
+        },
+
+        deleteRecordListItem: function(id) {
+            var itemToBeDeleted, parentElem;
+
+            itemToBeDeleted = document.getElementById(id);
+            itemToBeDeleted.parentNode.removeChild(itemToBeDeleted);
         },
 
         clearFields: function () {
@@ -181,9 +204,10 @@ var viewController = (function () {
         updateBudgetView: function(obj, type) {
             var beforeExpContent = '';
 
-            if(type === 'exp'){
+            if(obj.totalExpenses !== 0){
                 beforeExpContent = '-  ';
             }
+
             document.querySelector(DOMelements.totalIncomeLabel).textContent = obj.totalIncome;
             document.querySelector(DOMelements.totalExpensesLabel).textContent = beforeExpContent + obj.totalExpenses;
             document.querySelector(DOMelements.totalBudgetBalanceLabel).textContent = obj.budgetBalance;
@@ -218,6 +242,8 @@ var appController = (function () {
                 e.preventDefault();
             }
         });
+
+        document.querySelector(DOM.recordContainerList).addEventListener('click', deleteRecordItem);
 
         document.querySelector(DOM.typeBtnExpense).addEventListener('click', function () {
 
@@ -282,6 +308,27 @@ var appController = (function () {
             serviceController.calcualteBudget();
             //Calculate and update budget
             updateBudget(input.type);
+        }
+    };
+
+    var deleteRecordItem = function(e) {
+        var recordId, derivedId, type, ID;
+
+        recordId = e.target.parentNode.parentNode.parentNode.id;
+
+        if(recordId){
+            derivedId = recordId.split('-');
+            type = derivedId[0];
+            ID = parseInt(derivedId[2]);
+
+            //function deleteing record from data structure
+            serviceController.deleteItem(type, ID);
+
+            //delete item from template
+            viewController.deleteRecordListItem(recordId);
+
+            //budget updated after deleting
+            updateBudget(type);
         }
     }
 
