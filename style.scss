@@ -32,15 +32,50 @@ html {
 }
 
 .top {
+    position: relative;
     padding-top: 30px;
     padding-bottom: 30px;
     border-bottom: 1px solid rgb(190, 190, 190);
 
-
-    .date-headline{
+    .date-headline {
         text-align: center;
         margin-bottom: 40px;
         font-weight: 400;
+    }
+
+    .close-icon {
+        position: absolute;
+        right: 80px;
+        bottom: 20px;
+        font-size: 1.6em;
+        cursor: pointer;
+        transition: color .2s ease-in-out;
+        animation: upDown 1s both infinite;
+
+        &:hover {
+            color: $flat-red;
+        }
+
+        .ion-ios-close-outline{
+            transition: 1s;
+        }
+
+        .ion-ios-arrow-down{
+            transition: transform .3s ease-in-out;
+            animation: upDown 1s both infinite;
+        }
+
+        @keyframes upDown {
+            0%{
+                transform: translateY(-15px);
+            }
+            50%{
+                transform: scale(1.5)
+            }
+            100%{
+                transform: translateY(-15px);
+            }
+        }
     }
 }
 
@@ -98,7 +133,7 @@ html {
             top: -20px;
             margin: 0 auto;
             border-radius: 50%;
-    
+
             .percentage-value {
                 text-align: center;
                 font-size: .5em;
@@ -122,19 +157,6 @@ html {
     padding: 50px 0;
     background-color: rgba(255, 255, 255, 0.356);
 
-    .close-icon {
-        position: absolute;
-        right: 35px;
-        top: 20px;
-        font-size: 2em;
-        cursor: pointer;
-        transition: color .2s ease-in-out;
-
-        &:hover {
-            color: $flat-red;
-        }
-    }
-
     .record-form {
         display: flex;
         flex-direction: column;
@@ -150,6 +172,7 @@ html {
             font-size: 1.2em;
             font-weight: 400;
             border-radius: .35em;
+
 
             a {
                 padding: 10px 20px;
@@ -341,25 +364,30 @@ html {
 }
 
 
-.animation-class {
+.animation-class-in {
     animation: 1s both middle_animation;
+}
+
+.animation-class-out {
+    animation: 1s both middle_animation reverse;
 }
 
 @keyframes middle_animation {
     from {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(-100%);
     }
 
     to {
         opacity: 0;
-        transform: translateY(-100%);
+        transform: translateY(0);
     }
 }
 
 .animation-class-bottom {
     animation: 1s both bottom_animation;
 }
+
 
 @keyframes bottom_animation {
     from {
@@ -371,6 +399,6 @@ html {
     }
 }
 
-.hidden{
-    opacity: 1;
+.hidden {
+    display: none;
 }

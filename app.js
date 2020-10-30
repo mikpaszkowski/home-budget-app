@@ -2,34 +2,36 @@
 
 var serviceController = (function () {
 
-    var Expense = function (id, amount, category, date, time, description) {
+    class Expense {
 
-        this.id = id;
-        this.amount = amount;
-        this.category = category;
-        this.date = date;
-        this.time = time;
-        this.description = description;
-        this.percentage = -1;
-    };
-
-    Expense.prototype.calculatePercentage = function(totalIncomeValue) {
-
-        if(totalIncomeValue > 0){
-            this.percentage = Math.round((this.amount / totalIncomeValue) * 100);
+        constructor (id, amount, category, date, time, description) {
+            this.id = id;
+            this.amount = amount;
+            this.category = category;
+            this.date = date;
+            this.time = time;
+            this.description = description;
+            this.percentage = -1;
         }
-    };
-    Expense.prototype.getPercentage = function() { return this.percentage; }
 
-    var Income = function (id, amount, category, date, time, description) {
+        calculatePercentage(totalIncomeValue) {
+            if (totalIncomeValue > 0) {
+                this.percentage = Math.round((this.amount / totalIncomeValue) * 100);
+            }
+        }
+        getPercentage() { return this.percentage; }
+    }
 
-        this.id = id;
-        this.amount = amount;
-        this.category = category;
-        this.date = date;
-        this.time = time;
-        this.description = description;
-    };
+    class Income {
+        constructor (id, amount, category, date, time, description) {
+            this.id = id;
+            this.amount = amount;
+            this.category = category;
+            this.date = date;
+            this.time = time;
+            this.description = description;
+        }
+    }
 
     var data = {
         allRecords: {
@@ -44,13 +46,10 @@ var serviceController = (function () {
         percentageOfExp: 0,
     };
 
-    var calculateTotal = function(type){
+    var calculateTotal = function (type) {
         var sum = 0;
-        
-        data.allRecords[type].forEach(function(curr) {
-            sum += curr.amount;
 
-        })
+        data.allRecords[type].forEach(curr => sum += curr.amount);
         data.totals[type] = sum;
     };
 
@@ -73,21 +72,21 @@ var serviceController = (function () {
             return newRecord;
         },
 
-        deleteItem: function(type, id){
+        deleteItem: function (type, id) {
 
             var index;
-            var ids = data.allRecords[type].map(function(curr) {
+            var ids = data.allRecords[type].map(function (curr) {
                 return curr.id;
             });
 
             index = ids.indexOf(id);
-            
-            if(index !== -1){
+
+            if (index !== -1) {
                 data.allRecords[type].splice(index, 1);
             }
         },
 
-        calcualteBudget: function() {
+        calcualteBudget: function () {
 
             //income and expenses
             calculateTotal('exp');
@@ -95,30 +94,30 @@ var serviceController = (function () {
 
             //balance: income - expense
             data.budgetBalance = data.totals.inc - data.totals.exp;
-            if(data.totals.inc > 0){
+            if (data.totals.inc > 0) {
                 data.percentageOfExp = Math.round((data.totals.exp / data.totals.inc) * 100);
-            }else{
+            } else {
                 data.percentageOfExp = -1;
             }
         },
 
-        calculatePercentages: function() {
+        calculatePercentages: function () {
 
-            data.allRecords.exp.forEach(function(curr) {
+            data.allRecords.exp.forEach(function (curr) {
                 curr.calculatePercentage(data.totals.inc);
             })
         },
 
-        getPercentages: function() {
+        getPercentages: function () {
 
-            var allPercentages = data.allRecords.exp.map(function(curr) {
+            var allPercentages = data.allRecords.exp.map(function (curr) {
 
                 return curr.getPercentage();
             });
             return allPercentages;
         },
 
-        getBudgetData: function() {
+        getBudgetData: function () {
             return {
                 percentage: data.percentageOfExp,
                 budgetBalance: data.budgetBalance,
@@ -163,8 +162,8 @@ var viewController = (function () {
         sectionMiddle: '.middle',
     }
 
-    
-    var formatNumber = function(num, type){
+
+    var formatNumber = function (num, type) {
         var numSplit, int, dec, sign;
 
         num = Math.abs(num);
@@ -173,16 +172,16 @@ var viewController = (function () {
         numSplit = num.split('.');
 
         int = numSplit[0];
-        if(int.length > 3){
+        if (int.length > 3) {
             int = int.substr(0, int.length - 3) + ',' + int.substr(int.length - 3, 3);
         }
         dec = numSplit[1];
-        
-        return (type === 'exp' ? '-' : '+') + ' ' + int + '.' + dec; 
+
+        return (type === 'exp' ? '-' : '+') + ' ' + int + '.' + dec;
     };
 
-    var nodeListForEach = function(list, callback) {
-        for(var i = 0; i < list.length; i++){
+    var nodeListForEach = function (list, callback) {
+        for (var i = 0; i < list.length; i++) {
             callback(list[i], i);
         }
     };
@@ -211,7 +210,7 @@ var viewController = (function () {
             if (type === 'inc') {
                 html = '<div class="record-inc-item" id="inc-record-%id%"><div class="head-of-record"><input type="checkbox" name="select"><div class="record-name">%des%</div></div><div class="date">%date%</div><div class="amount-container"><div class="amount-value">%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
             } else if (type === 'exp') {
-                html = '<div class="record-exp-item" id="exp-record-%id%"><div class="head-of-record"><input type = "checkbox" name = "select"><div class="record-name">%des%</div></div><div class="amount-container"><div class="amount-value">%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
+                html = '<div class="record-exp-item" id="exp-record-%id%"><div class="head-of-record"><input type = "checkbox" name = "select"><div class="record-name">%des%</div></div><div class="date">%date%</div><div class="amount-container"><div class="amount-value">%amount%</div><div class="delete-icon"><i class="ion-ios-close-outline hidden"></i></div></div></div>';
             }
 
             newHtml = html.replace('%id%', obj.id);
@@ -222,7 +221,7 @@ var viewController = (function () {
             document.querySelector(DOMelements.recordContainerList).insertAdjacentHTML('beforeend', newHtml);
         },
 
-        deleteRecordListItem: function(id) {
+        deleteRecordListItem: function (id) {
             var itemToBeDeleted, parentElem;
 
             itemToBeDeleted = document.getElementById(id);
@@ -258,28 +257,28 @@ var viewController = (function () {
             return isValid;
         },
 
-        updateBudgetView: function(obj) {
+        updateBudgetView: function (obj) {
             var type;
 
             obj.budgetBalance > 0 ? type = 'inc' : 'exp';
 
-            document.querySelector(DOMelements.totalIncomeLabel).textContent = formatNumber(obj.totalIncome, 'exp');
+            document.querySelector(DOMelements.totalIncomeLabel).textContent = formatNumber(obj.totalIncome, 'inc');
             document.querySelector(DOMelements.totalExpensesLabel).textContent = formatNumber(obj.totalExpenses, 'exp')
             document.querySelector(DOMelements.totalBudgetBalanceLabel).textContent = formatNumber(obj.budgetBalance, type);
             document.querySelector(DOMelements.percentageTotal).textContent = formatNumber(obj.percentage, 'exp') + '%';
         },
 
-        displayMonth: function() {
+        displayMonth: function () {
             var now, year, month;
 
             now = new Date();
 
             months = ['Januray', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
-             'September', 'October', 'November', 'December'];
+                'September', 'October', 'November', 'December'];
 
             year = now.getFullYear();
             month = months[now.getMonth()];
-            document.querySelector(DOMelements.dateHeadlineContent).textContent = month + ' ' + year; 
+            document.querySelector(DOMelements.dateHeadlineContent).textContent = month + ' ' + year;
 
         },
 
@@ -333,13 +332,20 @@ var appController = (function () {
 
         document.querySelector(DOM.closeIconBtn).addEventListener('click', function () {
 
-            document.querySelector(DOMStyle.sectionMiddle).classList.add('animation-class');
-            setTimeout(() => {
-                document.querySelector(DOMStyle.sectionMiddle).style.display = 'none';
-            }, 1000);
-        });
+            //ion-ios-close-outline
+            const btnElem = document.querySelector(DOM.closeIconBtn);
 
-        document.querySelector(DOM)
+            btnElem.lastChild.classList.toggle('ion-ios-close-outline');
+            if(btnElem.lastChild.className === 'ion-ios-arrow-down'){
+                btnElem.style.webkitAnimationPlayState = 'running';
+            }else{
+                btnElem.style.webkitAnimationPlayState = 'paused';
+            }
+            
+            document.querySelector(DOMStyle.sectionMiddle).classList.toggle('animation-class');
+            document.querySelector(DOMStyle.sectionMiddle).classList.toggle('hidden');
+           
+        });
     };
 
     var updateBudget = function () {
@@ -354,7 +360,7 @@ var appController = (function () {
         viewController.updateBudgetView(budget);
     }
 
-    var updatePercentages = function() {
+    var updatePercentages = function () {
 
         //calculations
         serviceController.calculatePercentages();
@@ -397,12 +403,12 @@ var appController = (function () {
         }
     };
 
-    var deleteRecordItem = function(e) {
+    var deleteRecordItem = function (e) {
         var recordId, derivedId, type, ID;
 
         recordId = e.target.parentNode.parentNode.parentNode.id;
 
-        if(recordId){
+        if (recordId) {
             derivedId = recordId.split('-');
             type = derivedId[0];
             ID = parseInt(derivedId[2]);

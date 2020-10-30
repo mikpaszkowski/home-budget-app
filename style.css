@@ -23,6 +23,7 @@ html {
 }
 
 .top {
+  position: relative;
   padding-top: 30px;
   padding-bottom: 30px;
   border-bottom: 1px solid #bebebe;
@@ -32,6 +33,66 @@ html {
   text-align: center;
   margin-bottom: 40px;
   font-weight: 400;
+}
+
+.top .close-icon {
+  position: absolute;
+  right: 80px;
+  bottom: 20px;
+  font-size: 1.6em;
+  cursor: pointer;
+  -webkit-transition: color .2s ease-in-out;
+  transition: color .2s ease-in-out;
+  -webkit-animation: upDown 1s both infinite;
+          animation: upDown 1s both infinite;
+}
+
+.top .close-icon:hover {
+  color: #e74c3c;
+}
+
+.top .close-icon .ion-ios-close-outline {
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.top .close-icon .ion-ios-arrow-down {
+  -webkit-transition: -webkit-transform .3s ease-in-out;
+  transition: -webkit-transform .3s ease-in-out;
+  transition: transform .3s ease-in-out;
+  transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+  -webkit-animation: upDown 1s both infinite;
+          animation: upDown 1s both infinite;
+}
+
+@-webkit-keyframes upDown {
+  0% {
+    -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+  }
+  50% {
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+  100% {
+    -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+  }
+}
+
+@keyframes upDown {
+  0% {
+    -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+  }
+  50% {
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+  100% {
+    -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+  }
 }
 
 .budget-data {
@@ -116,20 +177,6 @@ html {
   display: block;
   padding: 50px 0;
   background-color: rgba(255, 255, 255, 0.356);
-}
-
-.middle .close-icon {
-  position: absolute;
-  right: 35px;
-  top: 20px;
-  font-size: 2em;
-  cursor: pointer;
-  -webkit-transition: color .2s ease-in-out;
-  transition: color .2s ease-in-out;
-}
-
-.middle .close-icon:hover {
-  color: #e74c3c;
 }
 
 .middle .record-form {
@@ -388,34 +435,38 @@ html {
   opacity: 1;
 }
 
-.animation-class {
+.animation-class-in {
   -webkit-animation: 1s both middle_animation;
           animation: 1s both middle_animation;
+}
+
+.animation-class-out {
+  animation: 1s both middle_animation reverse;
 }
 
 @-webkit-keyframes middle_animation {
   from {
     opacity: 1;
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
   }
   to {
     opacity: 0;
-    -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
 @keyframes middle_animation {
   from {
     opacity: 1;
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
   }
   to {
     opacity: 0;
-    -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
@@ -447,6 +498,6 @@ html {
 }
 
 .hidden {
-  opacity: 1;
+  display: none;
 }
 /*# sourceMappingURL=style.css.map */
