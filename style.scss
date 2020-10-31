@@ -12,7 +12,8 @@ $record-width: 800px;
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 body,
@@ -22,7 +23,12 @@ html {
     font-size: 16px;
     font-weight: 300;
     color: white;
+    z-index: -2;
     height: 100vh;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(10%, rgba(0, 0, 0, 0.7)), color-stop(50%, rgba(65, 65, 65, 0.822)), to(rgb(39, 39, 39))),
+        url(./assets/scott-graham-5fNmWej4tAA-unsplash.jpg);
+    background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.7) 10%, rgba(65, 65, 65, 0.822) 50%, rgb(39, 39, 39) 100%),
+        url(./assets/scott-graham-5fNmWej4tAA-unsplash.jpg);
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 10%, rgba(65, 65, 65, 0.822) 50%, rgb(39, 39, 39) 100%),
         url(./assets/scott-graham-5fNmWej4tAA-unsplash.jpg);
     background-position: center;
@@ -36,6 +42,7 @@ html {
     padding-top: 30px;
     padding-bottom: 30px;
     border-bottom: 1px solid rgb(190, 190, 190);
+    background-color: white;
 
     .date-headline {
         text-align: center;
@@ -49,31 +56,59 @@ html {
         bottom: 20px;
         font-size: 1.6em;
         cursor: pointer;
+        -webkit-transition: color .2s ease-in-out;
+        -o-transition: color .2s ease-in-out;
         transition: color .2s ease-in-out;
-        animation: upDown 1s both infinite;
+        -webkit-animation: upDown 1s both infinite;
+                animation: upDown 1s both infinite;
 
         &:hover {
             color: $flat-red;
         }
 
         .ion-ios-close-outline{
+            -webkit-transition: 1s;
+            -o-transition: 1s;
             transition: 1s;
         }
 
         .ion-ios-arrow-down{
+            -webkit-transition: -webkit-transform .3s ease-in-out;
+            transition: -webkit-transform .3s ease-in-out;
+            -o-transition: transform .3s ease-in-out;
             transition: transform .3s ease-in-out;
-            animation: upDown 1s both infinite;
+            transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+            -webkit-animation: upDown 1s both infinite;
+                    animation: upDown 1s both infinite;
+        }
+
+        @-webkit-keyframes upDown {
+            0%{
+                -webkit-transform: translateY(-15px);
+                        transform: translateY(-15px);
+            }
+            50%{
+                -webkit-transform: scale(1.5);
+                        transform: scale(1.5)
+            }
+            100%{
+                -webkit-transform: translateY(-15px);
+                        transform: translateY(-15px);
+            }
         }
 
         @keyframes upDown {
             0%{
-                transform: translateY(-15px);
+                -webkit-transform: translateY(-15px);
+                        transform: translateY(-15px);
             }
             50%{
-                transform: scale(1.5)
+                -webkit-transform: scale(1.5);
+                        transform: scale(1.5)
             }
             100%{
-                transform: translateY(-15px);
+                -webkit-transform: translateY(-15px);
+                        transform: translateY(-15px);
             }
         }
     }
@@ -81,8 +116,12 @@ html {
 
 .budget-data {
     position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin: 0 auto;
     margin-bottom: 40px;
 
@@ -124,7 +163,8 @@ html {
         height: auto;
         font-size: 1.6em;
         border: 1px solid white;
-        box-shadow: 0px 1px 8px white;
+        -webkit-box-shadow: 0px 1px 8px white;
+                box-shadow: 0px 1px 8px white;
 
         .percentage {
             background: #e74d3cd8;
@@ -158,15 +198,26 @@ html {
     background-color: rgba(255, 255, 255, 0.356);
 
     .record-form {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
 
 
         .record-type {
             width: $form-width;
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            justify-content: center;
+            -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
             margin: 0 auto;
             margin-bottom: 20px;
             font-size: 1.2em;
@@ -181,6 +232,19 @@ html {
                 width: 50%;
                 color: white;
                 cursor: pointer;
+            }
+
+            .income-btn,
+            .expense-btn{
+                transition: all .1s ease-in-out;
+
+                
+                &:focus,
+                &:active,
+                &:link{
+                    font-size: 1.2em;
+                    padding: 7px 14px;
+                }
             }
         }
 
@@ -203,14 +267,28 @@ html {
                     margin-bottom: 10px;
                 }
 
-                input,
+                input[type=text],
+                input[type=date],
+                input[type=time],
                 textarea,
                 select {
                     width: 100%;
                     border: 1px solid #eeeeee;
+                    cursor: pointer;
+                    color: gray;
                     border-radius: .2em;
                     height: 40px;
                     padding: 5px 10px;
+                    -webkit-transition: -webkit-box-shadow .2s ease-in-out;
+                    transition: -webkit-box-shadow .2s ease-in-out;
+                    -o-transition: box-shadow .2s ease-in-out;
+                    transition: box-shadow .2s ease-in-out;
+                    transition: box-shadow .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+
+                    &:hover{
+                        -webkit-box-shadow: 2px 1px 10px rgb(97, 97, 97);
+                                box-shadow: 2px 1px 10px rgb(97, 97, 97);
+                    }
                 }
 
                 textarea {
@@ -233,6 +311,8 @@ html {
             border-radius: .35em;
             background-color: #555555;
             cursor: pointer;
+            -webkit-transition: background-color .2s ease-in-out, color .2s ease-in-out;
+            -o-transition: background-color .2s ease-in-out, color .2s ease-in-out;
             transition: background-color .2s ease-in-out, color .2s ease-in-out;
 
             &:hover {
@@ -265,6 +345,13 @@ html {
     border: 2px solid $flat-green;
 }
 
+.active-record-type-green,
+.active-record-type-red,
+.record-type-container-expenses,
+.record-type-container-income{
+    transition: .2s ease-in-out;
+}
+
 
 .bottom {
     height: 60%;
@@ -272,6 +359,7 @@ html {
     font-weight: 400;
     font-size: 1.2em;
     display: block;
+    background-color: white;
 
     .record-list {
         display: block;
@@ -286,27 +374,53 @@ html {
 
         .record-inc-item,
         .record-exp-item {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: row;
+                    flex-direction: row;
+            -webkit-box-pack: justify;
+                -ms-flex-pack: justify;
+                    justify-content: space-between;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
             margin: 15px auto;
             position: relative;
             width: $record-width;
             height: 60px;
             padding: 10px 25px;
             border-radius: .25em;
-            animation: .5s both record_animation;
+            -webkit-animation: .5s both record_animation;
+                    animation: .5s both record_animation;
 
-            @keyframes record_animation {
+            @-webkit-keyframes record_animation {
                 from {
                     opacity: 0;
-                    transform: translateY(-50%);
+                    -webkit-transform: translateY(-50%);
+                            transform: translateY(-50%);
                 }
 
                 to {
                     opacity: 1;
-                    transform: translateY(0);
+                    -webkit-transform: translateY(0);
+                            transform: translateY(0);
+                }
+            }
+
+            @keyframes record_animation {
+                from {
+                    opacity: 0;
+                    -webkit-transform: translateY(-50%);
+                            transform: translateY(-50%);
+                }
+
+                to {
+                    opacity: 1;
+                    -webkit-transform: translateY(0);
+                            transform: translateY(0);
                 }
             }
 
@@ -320,10 +434,19 @@ html {
 
 
             .head-of-record {
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
-                justify-content: center;
-                flex-direction: row;
-                align-items: center;
+                -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                        justify-content: center;
+                -webkit-box-orient: horizontal;
+                -webkit-box-direction: normal;
+                    -ms-flex-direction: row;
+                        flex-direction: row;
+                -webkit-box-align: center;
+                    -ms-flex-align: center;
+                        align-items: center;
 
                 input[type=checkbox] {
                     margin-right: 25px;
@@ -331,9 +454,18 @@ html {
             }
 
             .amount-container {
+                display: -webkit-box;
+                display: -ms-flexbox;
                 display: flex;
-                justify-content: center;
-                flex-direction: row;
+                -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                        justify-content: center;
+                -webkit-box-orient: horizontal;
+                -webkit-box-direction: normal;
+                    -ms-flex-direction: row;
+                        flex-direction: row;
+                -webkit-transition: all .3s ease-in-out;
+                -o-transition: all .3s ease-in-out;
                 transition: all .3s ease-in-out;
 
                 i {
@@ -365,40 +497,84 @@ html {
 
 
 .animation-class-in {
-    animation: 1s both middle_animation;
+    -webkit-animation: 1s both middle_animation;
+            animation: 1s both middle_animation;
 }
 
 .animation-class-out {
     animation: 1s both middle_animation reverse;
 }
 
-@keyframes middle_animation {
+@-webkit-keyframes middle_animation {
     from {
         opacity: 1;
-        transform: translateY(-100%);
+        -webkit-transform: translateY(-100%);
+                transform: translateY(-100%);
     }
 
     to {
         opacity: 0;
-        transform: translateY(0);
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+    }
+}
+
+@keyframes middle_animation {
+    from {
+        opacity: 1;
+        -webkit-transform: translateY(-100%);
+                transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
     }
 }
 
 .animation-class-bottom {
-    animation: 1s both bottom_animation;
+    -webkit-animation: 1s both bottom_animation;
+            animation: 1s both bottom_animation;
+}
+
+
+@-webkit-keyframes bottom_animation {
+    from {
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+    }
+
+    to {
+        -webkit-transform: translateY(-70%);
+                transform: translateY(-70%);
+    }
 }
 
 
 @keyframes bottom_animation {
     from {
-        transform: translateY(0);
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
     }
 
     to {
-        transform: translateY(-70%);
+        -webkit-transform: translateY(-70%);
+                transform: translateY(-70%);
     }
 }
 
 .hidden {
     display: none;
+}
+
+.red-focus:focus{
+    outline: none;
+    border: 1.5px solid $flat-red !important;
+};
+
+.green-focus:focus{
+    outline: none;
+    border: 1.5px solid $flat-green !important;
+    
 }

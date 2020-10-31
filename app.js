@@ -4,7 +4,7 @@ var serviceController = (function () {
 
     class Expense {
 
-        constructor (id, amount, category, date, time, description) {
+        constructor(id, amount, category, date, time, description) {
             this.id = id;
             this.amount = amount;
             this.category = category;
@@ -23,7 +23,7 @@ var serviceController = (function () {
     }
 
     class Income {
-        constructor (id, amount, category, date, time, description) {
+        constructor(id, amount, category, date, time, description) {
             this.id = id;
             this.amount = amount;
             this.category = category;
@@ -233,7 +233,7 @@ var viewController = (function () {
 
             fields = document.querySelectorAll(
                 DOMelements.inputAmount + ', '
-                + DOMelements.inputAmount + ', '
+                + DOMelements.inputCategory + ', '
                 + DOMelements.inputDate + ', '
                 + DOMelements.inputTime + ', '
                 + DOMelements.inputDescription);
@@ -282,6 +282,29 @@ var viewController = (function () {
 
         },
 
+        changeFocusStyle: function (type) {
+            let formFields;
+
+            formFields = document.querySelectorAll(
+                DOMelements.inputAmount + ', '
+                + DOMelements.inputCategory + ', '
+                + DOMelements.inputDate + ', '
+                + DOMelements.inputTime + ', '
+                + DOMelements.inputDescription);
+
+            Array.from(formFields).forEach(e => {
+                if(type === 'exp'){
+                    e.classList.add('red-focus');
+                    e.classList.remove('green-focus');
+                    console.log('exp');
+                }else if(type === 'inc'){
+                    e.classList.add('green-focus');
+                    e.classList.remove('red-focus');
+                    console.log('inc');
+                }
+            })
+        },
+
         getDOMelements: function () {
             return DOMelements;
         },
@@ -310,6 +333,7 @@ var appController = (function () {
             }
         });
 
+        //deleting record from the list
         document.querySelector(DOM.recordContainerList).addEventListener('click', deleteRecordItem);
 
         document.querySelector(DOM.typeBtnExpense).addEventListener('click', function () {
@@ -319,6 +343,9 @@ var appController = (function () {
             var recordTypes = document.querySelector(DOM.recordTypeContainer);
             recordTypes.classList.add(DOMStyle.expenseTypeContainer);
             recordTypes.classList.remove(DOMStyle.incomeTypeContainer);
+
+            //color change of border's input fields whether it's expense or income
+            viewController.changeFocusStyle('exp');
         });
 
         document.querySelector(DOM.typeBtnIncome).addEventListener('click', function () {
@@ -328,6 +355,9 @@ var appController = (function () {
             var recordTypes = document.querySelector(DOM.recordTypeContainer);
             recordTypes.classList.remove(DOMStyle.expenseTypeContainer);
             recordTypes.classList.add(DOMStyle.incomeTypeContainer);
+
+            //color change of border's input fields whether it's expense or income
+            viewController.changeFocusStyle('inc');
         });
 
         document.querySelector(DOM.closeIconBtn).addEventListener('click', function () {
@@ -336,15 +366,15 @@ var appController = (function () {
             const btnElem = document.querySelector(DOM.closeIconBtn);
 
             btnElem.lastChild.classList.toggle('ion-ios-close-outline');
-            if(btnElem.lastChild.className === 'ion-ios-arrow-down'){
+            if (btnElem.lastChild.className === 'ion-ios-arrow-down') {
                 btnElem.style.webkitAnimationPlayState = 'running';
-            }else{
+            } else {
                 btnElem.style.webkitAnimationPlayState = 'paused';
             }
-            
+
             document.querySelector(DOMStyle.sectionMiddle).classList.toggle('animation-class');
             document.querySelector(DOMStyle.sectionMiddle).classList.toggle('hidden');
-           
+
         });
     };
 
@@ -428,6 +458,7 @@ var appController = (function () {
         init: function () {
             console.log('Application has started.');
             viewController.displayMonth();
+            viewController.changeFocusStyle('inc');
             setUpEventListeners();
         }
     }

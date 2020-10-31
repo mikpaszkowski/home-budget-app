@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body,
@@ -44,7 +44,7 @@ html {
   -webkit-transition: color .2s ease-in-out;
   transition: color .2s ease-in-out;
   -webkit-animation: upDown 1s both infinite;
-          animation: upDown 1s both infinite;
+  animation: upDown 1s both infinite;
 }
 
 .top .close-icon:hover {
@@ -62,36 +62,36 @@ html {
   transition: transform .3s ease-in-out;
   transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
   -webkit-animation: upDown 1s both infinite;
-          animation: upDown 1s both infinite;
+  animation: upDown 1s both infinite;
 }
 
 @-webkit-keyframes upDown {
   0% {
     -webkit-transform: translateY(-15px);
-            transform: translateY(-15px);
+    transform: translateY(-15px);
   }
   50% {
     -webkit-transform: scale(1.5);
-            transform: scale(1.5);
+    transform: scale(1.5);
   }
   100% {
     -webkit-transform: translateY(-15px);
-            transform: translateY(-15px);
+    transform: translateY(-15px);
   }
 }
 
 @keyframes upDown {
   0% {
     -webkit-transform: translateY(-15px);
-            transform: translateY(-15px);
+    transform: translateY(-15px);
   }
   50% {
     -webkit-transform: scale(1.5);
-            transform: scale(1.5);
+    transform: scale(1.5);
   }
   100% {
     -webkit-transform: translateY(-15px);
-            transform: translateY(-15px);
+    transform: translateY(-15px);
   }
 }
 
@@ -101,8 +101,8 @@ html {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin: 0 auto;
   margin-bottom: 40px;
 }
@@ -148,7 +148,7 @@ html {
   font-size: 1.6em;
   border: 1px solid white;
   -webkit-box-shadow: 0px 1px 8px white;
-          box-shadow: 0px 1px 8px white;
+  box-shadow: 0px 1px 8px white;
 }
 
 .budget-data .budget-balance .percentage {
@@ -185,11 +185,11 @@ html {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .middle .record-form .record-type {
@@ -198,8 +198,8 @@ html {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin: 0 auto;
   margin-bottom: 20px;
   font-size: 1.2em;
@@ -214,6 +214,20 @@ html {
   width: 50%;
   color: white;
   cursor: pointer;
+}
+
+.middle .record-form .record-type .income-btn,
+.middle .record-form .record-type .expense-btn {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.middle .record-form .record-type .income-btn:focus, .middle .record-form .record-type .income-btn:active, .middle .record-form .record-type .income-btn:link,
+.middle .record-form .record-type .expense-btn:focus,
+.middle .record-form .record-type .expense-btn:active,
+.middle .record-form .record-type .expense-btn:link {
+  font-size: 1.2em;
+  padding: 7px 14px;
 }
 
 .middle .record-form form .form-list {
@@ -235,14 +249,31 @@ html {
   margin-bottom: 10px;
 }
 
-.middle .record-form form .form-list input,
+.middle .record-form form .form-list input[type=text],
+.middle .record-form form .form-list input[type=date],
+.middle .record-form form .form-list input[type=time],
 .middle .record-form form .form-list textarea,
 .middle .record-form form .form-list select {
   width: 100%;
   border: 1px solid #eeeeee;
+  cursor: pointer;
+  color: gray;
   border-radius: .2em;
   height: 40px;
   padding: 5px 10px;
+  -webkit-transition: -webkit-box-shadow .2s ease-in-out;
+  transition: -webkit-box-shadow .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+}
+
+.middle .record-form form .form-list input[type=text]:hover,
+.middle .record-form form .form-list input[type=date]:hover,
+.middle .record-form form .form-list input[type=time]:hover,
+.middle .record-form form .form-list textarea:hover,
+.middle .record-form form .form-list select:hover {
+  -webkit-box-shadow: 2px 1px 10px #616161;
+  box-shadow: 2px 1px 10px #616161;
 }
 
 .middle .record-form form .form-list textarea {
@@ -294,6 +325,14 @@ html {
   border: 2px solid #2ecc71;
 }
 
+.active-record-type-green,
+.active-record-type-red,
+.record-type-container-expenses,
+.record-type-container-income {
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+}
+
 .bottom {
   height: 60%;
   padding: 30px 0;
@@ -321,14 +360,14 @@ html {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   margin: 15px auto;
   position: relative;
   width: 800px;
@@ -336,19 +375,19 @@ html {
   padding: 10px 25px;
   border-radius: .25em;
   -webkit-animation: .5s both record_animation;
-          animation: .5s both record_animation;
+  animation: .5s both record_animation;
 }
 
 @-webkit-keyframes record_animation {
   from {
     opacity: 0;
     -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
+    transform: translateY(-50%);
   }
   to {
     opacity: 1;
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -356,12 +395,12 @@ html {
   from {
     opacity: 0;
     -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
+    transform: translateY(-50%);
   }
   to {
     opacity: 1;
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -380,15 +419,15 @@ html {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .bottom .record-list .record-inc-item .head-of-record input[type=checkbox],
@@ -402,12 +441,12 @@ html {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
 }
@@ -437,7 +476,7 @@ html {
 
 .animation-class-in {
   -webkit-animation: 1s both middle_animation;
-          animation: 1s both middle_animation;
+  animation: 1s both middle_animation;
 }
 
 .animation-class-out {
@@ -448,12 +487,12 @@ html {
   from {
     opacity: 1;
     -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
+    transform: translateY(-100%);
   }
   to {
     opacity: 0;
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -461,43 +500,53 @@ html {
   from {
     opacity: 1;
     -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
+    transform: translateY(-100%);
   }
   to {
     opacity: 0;
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
 .animation-class-bottom {
   -webkit-animation: 1s both bottom_animation;
-          animation: 1s both bottom_animation;
+  animation: 1s both bottom_animation;
 }
 
 @-webkit-keyframes bottom_animation {
   from {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   to {
     -webkit-transform: translateY(-70%);
-            transform: translateY(-70%);
+    transform: translateY(-70%);
   }
 }
 
 @keyframes bottom_animation {
   from {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   to {
     -webkit-transform: translateY(-70%);
-            transform: translateY(-70%);
+    transform: translateY(-70%);
   }
 }
 
 .hidden {
   display: none;
+}
+
+.red-focus:focus {
+  outline: none;
+  border: 1.5px solid #e74c3c !important;
+}
+
+.green-focus:focus {
+  outline: none;
+  border: 1.5px solid #2ecc71 !important;
 }
 /*# sourceMappingURL=style.css.map */
