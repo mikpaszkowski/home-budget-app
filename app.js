@@ -378,6 +378,29 @@ var appController = (function () {
         });
     };
 
+    const dataFromJSONServer = async function(type) {
+        let typeOfRecord, newJSONRecord;;
+        if(type === 'inc'){ 
+            typeOfRecord = 'income';
+        }else{
+            typeOfRecord = 'expense';
+        }
+        let uri = `http://localhost:3000/${typeOfRecord}`;
+        const res = await fetch(uri);
+        const rec = await res.json();
+
+        rec.forEach(el => {
+            newJSONRecord = serviceController.addItem(type, el.amount,
+                 el.category, el.date, el.time, el.description);
+                 viewController.addListRecord(newJSONRecord, type);
+                 console.log(newJSONRecord);
+        });
+
+        serviceController.calcualteBudget();
+        updateBudget();
+        updatePercentages();
+    };
+
     var updateBudget = function () {
 
         //calculate te budget balance
@@ -426,7 +449,7 @@ var appController = (function () {
 
             serviceController.calcualteBudget();
             //Calculate and update budget
-            updateBudget(input.type);
+            updateBudget();
 
             //calculate and update percentages
             updatePercentages();
@@ -455,7 +478,9 @@ var appController = (function () {
     }
 
     return {
-        init: function () {
+        init: async function () {
+            await dataFromJSONServer('exp');
+            await dataFromJSONServer('inc');
             console.log('Application has started.');
             viewController.displayMonth();
             viewController.changeFocusStyle('inc');

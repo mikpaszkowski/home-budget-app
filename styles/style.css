@@ -13,10 +13,9 @@ html {
   font-size: 16px;
   font-weight: 300;
   color: white;
+  z-index: -2;
   height: 100vh;
-  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(10%, rgba(0, 0, 0, 0.7)), color-stop(50%, rgba(65, 65, 65, 0.822)), to(#272727)), url(./assets/scott-graham-5fNmWej4tAA-unsplash.jpg);
-  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 10%, rgba(65, 65, 65, 0.822) 50%, #272727 100%), url(./assets/scott-graham-5fNmWej4tAA-unsplash.jpg);
-  background-position: center;
+  background-color: #3f3f3f;
   background-size: cover;
   background-attachment: fixed;
   text-rendering: optimizeLegibility;
@@ -175,8 +174,8 @@ html {
 .middle {
   position: relative;
   display: block;
+  background-color: #3f3f3f;
   padding: 50px 0;
-  background-color: rgba(255, 255, 255, 0.356);
 }
 
 .middle .record-form {
@@ -339,6 +338,7 @@ html {
   font-weight: 400;
   font-size: 1.2em;
   display: block;
+  background-color: #3f3f3f;
 }
 
 .bottom .record-list {

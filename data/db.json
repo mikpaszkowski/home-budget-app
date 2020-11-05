@@ -1,0 +1,90 @@
+{
+    "expense": [
+        {
+            "amount": 234,
+            "category": "Vehicle",
+            "date": "11/07/2020",
+            "time": "03:15 PM",
+            "description": "Fixing the oil system"
+        },
+        {
+            "amount": 1211,
+            "category": "Shopping",
+            "date": "23/11/2019",
+            "time": "07:15 PM",
+            "description": "Black friday, literally"
+        },
+        {
+            "amount": 68,
+            "category": "Food",
+            "date": "12/04/2020",
+            "time": "04:15 PM",
+            "description": "Supper at Dominium"
+        },
+        {
+            "amount": 150,
+            "category": "Entertainment",
+            "date": "22/05/2020",
+            "time": "04:15 PM",
+            "description": "6x6x6 rubic's cube"
+        },
+        {
+            "amount": 12000,
+            "category": "Entartainment",
+            "date": "23/09/2022",
+            "time": "12:15 PM",
+            "description": "Passion, passion, passion"
+        },
+        {
+            "amount": 665455,
+            "category": "Shopping",
+            "date": "23/11/2012",
+            "time": "07:15 PM",
+            "description": "New car"
+        }
+    ],
+    "income": [
+        {
+            "amount": 234,
+            "category": "Income",
+            "date": "11/07/2020",
+            "time": "03:15 PM",
+            "description": "Fixing the bug on the client website"
+        },
+        {
+            "amount": 1211,
+            "category": "Investment",
+            "date": "23/11/2019",
+            "time": "07:15 PM",
+            "description": "Investing in stock market"
+        },
+        {
+            "amount": 68,
+            "category": "Food",
+            "date": "12/04/2020",
+            "time": "04:15 PM",
+            "description": "Supper at Dominium"
+        },
+        {
+            "amount": 150,
+            "category": "Entertainment",
+            "date": "22/05/2020",
+            "time": "04:15 PM",
+            "description": "6x6x6 rubic's cube"
+        },
+        {
+            "amount": 12000,
+            "category": "Income",
+            "date": "23/09/2022",
+            "time": "12:15 PM",
+            "description": "Creating the e-commerce shop"
+        },
+        {
+            "amount": 665455,
+            "category": "Shopping",
+            "date": "23/11/2012",
+            "time": "07:15 PM",
+            "description": "Old car"
+        }
+    ]
+}
