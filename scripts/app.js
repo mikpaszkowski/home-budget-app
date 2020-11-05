@@ -60,7 +60,7 @@ var serviceController = (function () {
             if (data.allRecords[type].length > 0) {
                 id = data.allRecords[type][data.allRecords[type].length - 1].id + 1;
             } else {
-                id = 0;
+                id = 1;
             }
 
             if (type === 'inc') {
@@ -385,7 +385,7 @@ var appController = (function () {
         }else{
             typeOfRecord = 'expense';
         }
-        let uri = `http://localhost:3000/${typeOfRecord}?_sort=amount&_order=inc`;
+        let uri = `http://localhost:3000/${typeOfRecord}?_sort=id&_order=inc`;
         const res = await fetch(uri);
         const rec = await res.json();
 
@@ -483,8 +483,8 @@ var appController = (function () {
         }
     };
 
-    var deleteRecordItem = function (e) {
-        var recordId, derivedId, type, ID;
+    var deleteRecordItem = async function (e) {
+        var recordId, derivedId, type, ID, typeOfRecord;
 
         recordId = e.target.parentNode.parentNode.parentNode.id;
 
@@ -492,6 +492,16 @@ var appController = (function () {
             derivedId = recordId.split('-');
             type = derivedId[0];
             ID = parseInt(derivedId[2]);
+
+            if(type === 'inc'){
+                typeOfRecord = 'income';
+            }else{
+                typeOfRecord = 'expense';
+            }
+
+            const res = await fetch(`http://localhost:3000/${typeOfRecord}/${ID}`, {
+                method: 'DELETE'
+            })
 
             //function deleteing record from data structure
             serviceController.deleteItem(type, ID);

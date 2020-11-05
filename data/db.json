@@ -1,22 +1,6 @@
 {
   "expense": [
     {
-      "id": 1,
-      "amount": 234,
-      "category": "Vehicle",
-      "date": "11/07/2020",
-      "time": "03:15 PM",
-      "description": "Fixing the oil system"
-    },
-    {
-      "id": 2,
-      "amount": 1211,
-      "category": "Shopping",
-      "date": "23/11/2019",
-      "time": "07:15 PM",
-      "description": "Black friday, literally"
-    },
-    {
       "id": 3,
       "amount": 68,
       "category": "Food",
