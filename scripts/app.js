@@ -385,7 +385,7 @@ var appController = (function () {
         }else{
             typeOfRecord = 'expense';
         }
-        let uri = `http://localhost:3000/${typeOfRecord}`;
+        let uri = `http://localhost:3000/${typeOfRecord}?_sort=amount&_order=inc`;
         const res = await fetch(uri);
         const rec = await res.json();
 
@@ -399,6 +399,31 @@ var appController = (function () {
         serviceController.calcualteBudget();
         updateBudget();
         updatePercentages();
+    };
+
+    const saveRecordToDB = async function(obj, type) {
+
+        let typeOfRecord;
+    
+        const record = {
+            amount: obj.amount,
+            category: obj.category,
+            date: obj.date,
+            time: obj.time,
+            description: obj.description,
+        };
+
+        if(type === 'inc'){
+            typeOfRecord = 'income';
+        }else{
+            typeOfRecord = 'expense';
+        }
+
+        await fetch(`http://localhost:3000/${typeOfRecord}`, {
+            method: 'POST',
+            body: JSON.stringify(record),
+            headers: { 'Content-Type': 'application/json'}
+        });
     };
 
     var updateBudget = function () {
@@ -427,19 +452,21 @@ var appController = (function () {
 
 
 
-    var addItemController = function () {
+    var addItemController = async function () {
 
         var input, newRecord;
 
         //getting input data from front
         input = viewController.getInput();
-        console.log(input);
 
         if (viewController.isFormValid(input)) {
             // 2. Add the item to the budget controller
             newRecord = serviceController.addItem(input.type, input.amount,
                 input.category, input.date, input.time, input.description);
             serviceController.displayData();
+
+            //3. Add record to the JSON database server
+            await saveRecordToDB(newRecord, input.type);
 
             // 3. Add the item to the UI
             viewController.addListRecord(newRecord, input.type);
